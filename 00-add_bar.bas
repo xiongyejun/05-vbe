@@ -19,13 +19,13 @@ Function add_bar()
     Dim mybar_event As mybar
     Dim str As String, arr_sr
     Dim i As Long
-    Const VBE_DIR As String = "C:\Users\ÐÜÒµ¾ü\Documents\04-github\05-vbe\vbe_code\CommandBarButton"
+    Const VBE_DIR As String = "\04-github\05-vbe\vbe_code\CommandBarButton"
         
     On Error Resume Next
     Application.VBE.CommandBars("mybar").Delete
     On Error GoTo 0
     
-    str = fso_read_txt(VBE_DIR)
+    str = fso_read_txt(get_my_doc() & VBE_DIR)
     arr_sr = Split(str, vbNewLine)
     
     With Application.VBE.CommandBars.Add
@@ -89,6 +89,15 @@ Function check_vbproject() As Boolean
     End If
 End Function
 
-
+Function get_my_doc() As String
+    Dim wsh As Object
+    Dim str As String
+    
+    Set wsh = CreateObject("WScript.Shell")
+    str = wsh.SpecialFolders("Mydocuments")
+    get_my_doc = str
+    
+    Set wsh = Nothing
+End Function
 
 
