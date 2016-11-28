@@ -1,0 +1,50 @@
+Function providerStr(fileName As String) As String
+    If VBA.Right$(fileName, 4) = ".xls" Then
+        providerStr = "Microsoft.Jet.OLEDB.4.0;Data Source=" & fileName
+        providerStr = providerStr & ";Extended Properties=""Excel 8.0;HDR=YES"";"
+    ElseIf VBA.Right$(fileName, 4) = ".mdb" Then
+        providerStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & fileName
+    ElseIf VBA.Right$(fileName, 5) = ".xlsx" Or VBA.Right$(fileName, 5) = ".xlsm" Then
+        providerStr = "Provider=Microsoft.Ace.OLEDB.12.0;Data Source=" & fileName
+        providerStr = providerStr & ";Extended Properties=""Excel 12.0;HDR=YES"";"
+        
+'    ElseIf VBA.Right$(fileName, 4) = ".txt" Then
+'        'fileName应该为文件的路径
+'        providerStr = "Provider=Microsoft.Ace.OLEDB.12.0;Data Source=" & fileName
+'        providerStr = providerStr & ";Extended Properties=""TEXT;HDR=YES"";"
+    End If
+    
+End Function
+
+
+'Microsoft ActiveX Data Objects 2.8 Library
+Function CreateAdo(SqlStr As String, rng As Range, fileName As String) As Long  '0表示出错，1表示正确
+    Dim AdoConn As Object, rst As Object
+    Dim i As Long
+    
+    On Error GoTo Err
+    Set AdoConn = CreateObject("ADODB.Connection")
+    Set rst = CreateObject("ADODB.Recordset")
+    
+    AdoConn.Open providerStr(fileName)
+    rst.Open SqlStr, AdoConn
+    
+    For i = 0 To rst.Fields.Count - 1
+        rng.Offset(0, i).value = rst.Fields(i).Name
+    Next i
+
+    rng.Offset(1, 0).CopyFromRecordset rst 'AdoConn.Execute(SqlStr)
+    CreateAdo = 1
+    rst.Close
+    
+A:
+    AdoConn.Close
+    Set rst = Nothing
+    Set AdoConn = Nothing
+    Exit Function
+    
+Err:
+    MsgBox Err.Description
+    CreateAdo = 0
+    GoTo A
+End Function

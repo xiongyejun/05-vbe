@@ -1,0 +1,3 @@
+    Dim dic As Object
+
+    Set dic = CreateObject("Scripting.Dictionary")

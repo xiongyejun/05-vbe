@@ -1,0 +1,35 @@
+Function getSheetNameByAdo(fileName As String, shtNameArr() As String) '0表示出错，k表示工作表数量
+    Dim AdoConn As Object ' New ADODB.Connection
+    Dim AdoRst As Object ' ADODB.Recordset
+    Dim StrConn As String
+    Dim strSql As String
+    Dim k As Long
+    
+    On Error GoTo Err1:
+    
+    StrConn = ExcelData(fileName)
+    Set AdoConn = CreateObject("ADODB.Connection")
+    AdoConn.Open StrConn
+    Set AdoRst = CreateObject("ADODB.Recordset")
+    Set AdoRst = AdoConn.OpenSchema(20) 'adSchemaTables
+    
+    k = 0
+    Do Until AdoRst.EOF
+        If AdoRst!Table_type = "TABLE" And AdoRst!TABLE_NAME Like "*$" Then
+            k = k + 1
+            ReDim Preserve shtNameArr(1 To k) As String
+            shtNameArr(k) = AdoRst!TABLE_NAME
+        End If
+        AdoRst.MoveNext
+    Loop
+    
+    getSheetNameByAdo = k
+A:
+    Set AdoConn = Nothing
+    Set AdoRst = Nothing
+    Exit Function
+Err1:
+    MsgBox Err.Description
+    getSheetNameByAdo = 0
+    GoTo A
+End Function

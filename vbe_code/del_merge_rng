@@ -1,0 +1,30 @@
+Function del_merge_rng(sht As Worksheet) As String  '返回要复制的范围区域
+    Dim i_row As Long, tmp As Long
+    Dim i_col As Long
+    Dim i As Long
+    Dim rng As Range, rng_mergearea As Range
+    
+    sht.Activate
+    i_col = Range("A3").End(xlToRight).Column
+    i_row = 3
+    
+    For i = 1 To i_col
+        tmp = Cells(Cells.Rows.Count, i).End(xlUp).Row
+        If tmp > i_row Then i_row = tmp
+    Next i
+    
+    If i_row > 3 Then
+        For Each rng In Range("A4", Cells(i_row, i_col))
+            If rng.MergeCells Then
+                Set rng_mergearea = rng.Range("a1").MergeArea
+                rng.UnMerge
+                rng_mergearea.Value = rng.Range("a1").Value
+            End If
+        Next rng
+        
+        del_merge_rng = Range("A4", Cells(i_row, i_col)).Address
+    Else
+        del_merge_rng = ""
+    End If
+    
+End Function

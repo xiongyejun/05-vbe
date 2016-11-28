@@ -1,0 +1,21 @@
+Function create_regx(str As String)
+    Dim regx As Object
+    Dim mh As Object
+    Dim str_new As String
+    
+    Set regx = CreateObject("VBScript.Regexp")
+    With regx
+        .Pattern = "\s+。"
+        .Global = True  '当属性值为False时,只要在目标文本中,找到一个匹配时,即停止搜索。如果想要找出目标文本中的所有匹配，那么需要把它的属性值设置为True
+'        IgnoreCase：设置对英文字母大小写是否敏感。默认值False, 对大小写敏感；设置为True,忽略大小写
+'        MultiLine：它影响且只影响元字符^和$的意义。值为False，无论目标文本是多少行，整个文本中则只有一个开始位置，^表示第一行的开始；只有一个行结束位置，$表示文本末尾位置。值为True，那么，^和$分别表示每一行的行首和行尾位置。
+        str_new = .Replace(str, "。")
+        Set mh = .Execute(str)
+        
+    End With
+    
+    Debug.Print mh(0).SubMatches(0)
+    
+    Set regx = Nothing
+    Set mh = Nothing
+End Function

@@ -1,0 +1,10 @@
+Sub vba_main()
+    
+    
+    On Error GoTo err_handle
+    
+    
+    Exit Sub
+err_handle:
+    MsgBox Err.Description
+End Sub

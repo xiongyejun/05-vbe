@@ -1,0 +1,35 @@
+Function getFieldNameByAdo(fileName As String, tableName As String, fieldNameArr() As String) '0表示出错，k表示字段数量
+    Dim AdoConn As Object ' New ADODB.Connection
+    Dim AdoRst As Object ' ADODB.Recordset
+    Dim StrConn As String
+    Dim strSql As String
+    Dim k As Long
+    
+    On Error GoTo Err1:
+    
+    StrConn = ExcelData(fileName)
+    Set AdoConn = CreateObject("ADODB.Connection")
+    AdoConn.Open StrConn
+    Set AdoRst = CreateObject("ADODB.Recordset")
+    Set AdoRst = AdoConn.OpenSchema(4) 'adSchemaColumns
+    
+    k = 0
+    Do Until AdoRst.EOF
+        If AdoRst!TABLE_NAME = tableName Then
+            k = k + 1
+            ReDim Preserve fieldNameArr(1 To k) As String
+            fieldNameArr(k) = AdoRst!COLUMN_NAME
+        End If
+        AdoRst.MoveNext
+    Loop
+    
+    adoGetFieldName = k
+A:
+    Set AdoConn = Nothing
+    Set AdoRst = Nothing
+    Exit Function
+Err1:
+    MsgBox Err.Description
+    adoGetFieldName = 0
+    GoTo A
+End Function

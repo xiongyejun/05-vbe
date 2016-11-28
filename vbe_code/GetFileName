@@ -1,0 +1,11 @@
+Function GetFileName(Optional strFilter As String = "*.*") As String
+    With Application.FileDialog(msoFileDialogOpen)
+'        .InitialFileName = ActiveWorkbook.path & "\" & strFilter
+        If .Show = -1 Then                  ' -1代表确定，0代表取消
+            GetFileName = .SelectedItems(1)
+        Else
+            GetFileName = ""
+            MsgBox "请选择文件对象。"
+        End If
+    End With
+End Function

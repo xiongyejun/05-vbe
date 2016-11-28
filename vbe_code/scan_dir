@@ -1,0 +1,20 @@
+Function scan_dir(str_dir As String) As Long
+    Dim fso As Object
+    Dim file As Object
+    Dim folder As Object
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set folder = fso.Getfolder(str_dir)
+    
+    For Each file In folder.Files
+        If VBA.InStr(file.Type, "Microsoft Excel") Then
+            If VBA.InStr(file.Name, "~$") = 0 And file.Name <> ThisWorkbook.Name Then
+                Debug.Print file.Name
+            End If
+        End If
+    Next file
+    
+    Set file = Nothing
+    Set folder = Nothing
+    Set fso = Nothing
+End Function

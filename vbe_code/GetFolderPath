@@ -1,0 +1,13 @@
+Function GetFolderPath() As String
+    Dim myFolder As Object
+    Set myFolder = CreateObject("Shell.Application").Browseforfolder(0, "GetFolder", 0)
+    If Not myFolder Is Nothing Then
+'        GetFolderPath = myFolder.Items.item.path
+        GetFolderPath = myFolder.Self.path
+        If Right(GetFolderPath, 1) <> "\" Then GetFolderPath = GetFolderPath & "\"
+    Else
+        GetFolderPath = ""
+        MsgBox "ÇëÑ¡ÔñÎÄ¼þ¼Ð¡£"
+    End If
+    Set myFolder = Nothing
+End Function

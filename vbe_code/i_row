@@ -1,0 +1,3 @@
+    Dim i_row As Long
+
+    i_row = Range("A" & Cells.Rows.Count).End(xlUp).Row

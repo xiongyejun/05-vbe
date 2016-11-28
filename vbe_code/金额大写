@@ -1,0 +1,5 @@
+Function dx(n) As String
+    dx = VBA.Replace(Application.Text(Round(n + 0.00000001, 2), "[DBnum2]"), ".", "元")
+    dx = IIf(Left(Right(dx, 3), 1) = "元", Left(dx, Len(dx) - 1) & "角" & Right(dx, 1) & "分", IIf(Left(Right(dx, 2), 1) = "元", dx & "角整", IIf(dx = "零", "", dx & "元整")))
+    dx = Replace(Replace(Replace(Replace(dx, "零元零角", ""), "零元", ""), "零角", "零"), "-", "负")
+End Function

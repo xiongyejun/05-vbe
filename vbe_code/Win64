@@ -1,0 +1,5 @@
+#If VBA7 And Win64 Then
+
+#Else
+
+#End If

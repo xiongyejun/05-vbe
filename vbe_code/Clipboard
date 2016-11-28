@@ -1,0 +1,17 @@
+Function SetClipText(str As String)
+    Dim objData As Object 'New DataObject  '需要引用"Microsoft Forms 2.0 Object Library"  FM20.DLL
+    
+    Set objData = CreateObject("new:{1C3B4210-F441-11CE-B9EA-00AA006B1A69}")
+
+    With objData
+        .SetText str       '设置文本
+        .PutInClipboard
+        MsgBox "已添加到剪贴板。"
+'        .GetFromClipboard               '读取文本
+'        MsgBox "当前剪贴板内的文本是：" & .GetText
+'        .Clear
+'        .StartDrag
+    End With
+    Set objData = Nothing
+    
+End Function

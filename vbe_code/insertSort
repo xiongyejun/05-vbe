@@ -1,0 +1,22 @@
+
+Sub InsertSort(l(), Low As Long, High As Long)
+    Dim i As Long, j As Long
+    Dim ShaoBing
+    
+    For i = Low + 1 To High
+    
+        If l(i) < l(i - 1) Then
+            ShaoBing = l(i)             'ÉèÖÃÉÚ±ø
+                    
+            j = i - 1
+            Do While l(j) > ShaoBing
+                l(j + 1) = l(j)
+                j = j - 1
+                If j = Low - 1 Then Exit Do
+            Loop
+            
+            l(j + 1) = ShaoBing
+        End If
+    
+    Next i
+End Sub

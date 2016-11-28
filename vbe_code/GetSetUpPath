@@ -1,0 +1,6 @@
+Function GetSetUpPath(AppName As String)
+    Dim WSH As Object
+    Set WSH = CreateObject("Wscript.Shell")
+    GetSetUpPath = WSH.REGREAD("HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\App Paths\" & AppName & "\Path")
+    Set WSH = Nothing
+End Function

@@ -1,0 +1,14 @@
+Sub json()
+    Const strJSON As String = "[""甲"",""乙"",""丙""]"
+    Dim objJSON As Object
+    Dim Cell '这里不能定义为object类型
+    With CreateObject("msscriptcontrol.scriptcontrol")
+        .Language = "JavaScript"
+        .AddCode "var mydata =" & strJSON
+        Set objJSON = .CodeObject
+    End With
+    Stop '查看vba本地窗口里objJSON对象以了解JSON数据在vba里的形态
+    For Each Cell In objJSON.mydata
+        Debug.Print Cell
+    Next
+End Sub

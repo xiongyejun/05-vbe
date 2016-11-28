@@ -1,0 +1,10 @@
+Function getRngByInputBox(rng As Range, Optional strPrompt As String = "选择输出单元格。")
+    On Error Resume Next
+    Set rng = Application.InputBox(strPrompt, Default:=ActiveCell.Address, Type:=8)
+    On Error GoTo 0
+    If rng Is Nothing Then
+        MsgBox "请选择单元格区域。"
+    Else
+        Set rng = rng.Range("a1")
+    End If
+End Function

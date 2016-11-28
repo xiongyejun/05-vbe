@@ -1,0 +1,17 @@
+
+Sub SelectSort(l())
+    Dim i As Long, j As Long, min As Long
+    
+    For i = 1 To UBound(l)
+        min = i
+        
+        For j = i + 1 To UBound(l)
+            If l(min) > l(j) Then
+                min = j
+            End If
+        Next j
+        
+        If i <> min Then Call Swap(l, i, min)
+   
+    Next i
+End Sub

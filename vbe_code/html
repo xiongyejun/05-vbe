@@ -1,0 +1,11 @@
+Function get_html(str_url As String) As String
+    
+    With CreateObject("MSXML2.XMLHTTP") 'CreateObject("WinHttp.WinHttpRequest.5.1")'
+        .Open "POST", "", False
+        .setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+        .setRequestHeader "Referer", ""
+        .Send
+        get_html = .responsetext
+    End With
+    
+End Function
