@@ -1,4 +1,5 @@
-Function create_query_table(file_name As String, str_sql As String, rng As Range)
+
+Function create_query_table(file_name As String, str_sql As String, rng As Range) As Long
     Dim str_conn As String
     
     On Error GoTo Err1:
@@ -18,8 +19,11 @@ Function create_query_table(file_name As String, str_sql As String, rng As Range
         .Refresh
         .Delete
     End With
+    
+    create_query_table = 1
     Exit Function
     
 Err1:
     MsgBox Err.Description
+    create_query_table = -1
 End Function

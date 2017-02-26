@@ -1,0 +1,11 @@
+Function if_has_sht(sht_name As String)
+    On Error Resume Next
+    ActiveWorkbook.Worksheets(sht_name).Activate
+    If Err.Number > 0 Then
+        Worksheets.Add After:=Worksheets(Worksheets.Count)
+        ActiveSheet.Name = sht_name
+    Else
+        Cells.Delete
+    End If
+    On Error GoTo 0
+End Function

@@ -1,17 +1,10 @@
 Function providerStr(fileName As String) As String
-    If VBA.Right$(fileName, 4) = ".xls" Then
-        providerStr = "Microsoft.Jet.OLEDB.4.0;Data Source=" & fileName
-        providerStr = providerStr & ";Extended Properties=""Excel 8.0;HDR=YES"";"
-    ElseIf VBA.Right$(fileName, 4) = ".mdb" Then
-        providerStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & fileName
-    ElseIf VBA.Right$(fileName, 5) = ".xlsx" Or VBA.Right$(fileName, 5) = ".xlsm" Then
-        providerStr = "Provider=Microsoft.Ace.OLEDB.12.0;Data Source=" & fileName
-        providerStr = providerStr & ";Extended Properties=""Excel 12.0;HDR=YES"";"
-        
-'    ElseIf VBA.Right$(fileName, 4) = ".txt" Then
-'        'fileName应该为文件的路径
-'        providerStr = "Provider=Microsoft.Ace.OLEDB.12.0;Data Source=" & fileName
-'        providerStr = providerStr & ";Extended Properties=""TEXT;HDR=YES"";"
+    If Val(Application.Version) > 11 Then
+        providerStr = "OLEDB;Provider =Microsoft.ACE.OLEDB.12.0;Data Source=" _
+                    & fileName & ";Extended Properties=""Excel 12.0;HDR=YES"";"
+    Else
+        providerStr = "OLEDB;Provider =Microsoft.Jet.OLEDB.4.0;Data Source=" _
+                    & fileName & ";Extended Properties=""Excel 8.0;HDR=YES"";"
     End If
     
 End Function

@@ -10,6 +10,7 @@ fso_readtxt
 GetFolderPath
 GetFileName
 screen
+if_has_sht
 Win64
 html
 getRngByInputBox
