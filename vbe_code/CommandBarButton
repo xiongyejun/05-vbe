@@ -6,7 +6,7 @@ ado
 scan_dir
 query_table
 fso
-fso_readtxt
+readtxt
 GetFolderPath
 GetFileName
 screen
@@ -17,6 +17,7 @@ getRngByInputBox
 regx
 Clipboard
 json
+CreatePivotCache
 GetSetUpPath
 Desktop_path
 getSheetNameByAdo

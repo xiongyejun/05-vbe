@@ -1,0 +1,75 @@
+Sub test()
+    Dim str_sql As String
+    Dim pc_table_name As String
+    
+    str_sql = "Select * From [Sheet1$]"
+    shtSearch2.Activate
+    Cells.Delete
+    pc_table_name = "PC2"
+    CreatePivotCache str_sql, ThisWorkbook.path & "\" & sSUM_TABLE, ThisWorkbook, Range("A4"), pc_table_name
+    
+    With ActiveSheet.PivotTables(pc_table_name)
+        .PivotFields("货号").Orientation = xlRowField
+        .PivotFields("货号").Position = 1
+        
+        .PivotFields("品名").Orientation = xlRowField
+        .PivotFields("品名").Position = 2
+        
+        .PivotFields("备注").Orientation = xlColumnField
+        .PivotFields("备注").Position = 1
+        
+        .AddDataField .PivotFields("日销"), "求和项:日销", xlSum
+        
+        .PivotFields("日期").Orientation = xlPageField      '筛选
+        .PivotFields("日期").Position = 1
+        
+        .PivotFields("货号").Subtotals = Array(False, False, _
+        False, False, False, False, False, False, False, False, False, False)   '删除汇总
+    End With
+End Sub
+
+'str_sql        sql语句
+'source_name    数据源名称
+'wk             需要添加透视表的工作簿
+'rng            透视表的位置
+'pc_table_name  透视表的名称
+Function CreatePivotCache(str_sql As String, source_name As String, wk As Workbook, rng As Range, pc_table_name As String) As Long
+    Dim AdoConn As Object, rst As Object
+    Dim pc As PivotCache
+    
+    On Error GoTo Err1
+    
+    Set AdoConn = CreateObject("ADODB.Connection")
+    Set rst = CreateObject("ADODB.Recordset")
+    
+    AdoConn.Open ProviderStr(source_name)
+    rst.Open str_sql, AdoConn
+    
+    Set pc = wk.PivotCaches.Add(xlExternal)
+    Set pc.Recordset = rst
+    pc.CreatePivotTable rng, pc_table_name
+    
+    rst.Close
+    AdoConn.Close
+    Set rst = Nothing
+    Set AdoConn = Nothing
+    Set pc = Nothing
+    
+    CreatePivotCache = 1
+    
+    Exit Function
+Err1:
+    MsgBox Err.Description
+    CreatePivotCache = -1
+End Function
+
+Function ProviderStr(fileName As String) As String
+    If Val(Application.VERSION) > 11 Then
+        ProviderStr = "Provider =Microsoft.ACE.OLEDB.12.0;Data Source=" _
+                    & fileName & ";Extended Properties=""Excel 12.0;HDR=YES"";"
+    Else
+        ProviderStr = "OLEDB;Provider =Microsoft.Jet.OLEDB.4.0;Data Source=" _
+                    & fileName & ";Extended Properties=""Excel 8.0;HDR=YES"";"
+    End If
+    
+End Function

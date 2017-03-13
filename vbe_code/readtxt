@@ -1,0 +1,78 @@
+
+'按数据类型读取文本，适合比较规范的数据，按逗号分隔的
+Type MyType
+    no As Long
+    name As String
+    price1 As Double
+    price2 As Double
+    id As String
+    link As String
+End Type
+
+Sub ReadTxtLineOnTypeByOpen()
+    Dim num_file As Integer
+    Dim t As MyType
+    
+    num_file = VBA.FreeFile
+    
+    Open ThisWorkbook.Path & "\5555.txt" For Input As #num_file
+    
+    '跳过标题行
+    Line Input #num_file, t.name
+    Do Until VBA.EOF(num_file)
+        Input #num_file, t.no, t.name, t.price1, t.price2, t.id, t.link
+        Debug.Print t.no, t.name, t.price1, t.price2, t.id, t.link
+    Loop
+    Close #num_file
+    
+End Sub
+
+'以字节方式读取文本
+Sub ReadTxtByOpenBin()
+    Dim num_file As Integer
+    Dim str As String
+    Dim b() As Byte
+    
+    num_file = VBA.FreeFile
+    
+    Open ThisWorkbook.Path & "\5555.txt" For Binary Access Read As #num_file
+    ReDim b(VBA.LOF(num_file) - 1) As Byte
+    Get #num_file, 1, b
+    
+    Close #num_file
+    str = VBA.StrConv(b, vbUnicode)
+    Debug.Print str
+End Sub
+
+'逐行读取文本
+Sub ReadTxtLineByOpen()
+    Dim num_file As Integer
+    Dim str As String
+    
+    num_file = VBA.FreeFile
+    
+    Open ThisWorkbook.Path & "\5555.txt" For Input As #num_file
+    
+    Do Until VBA.EOF(num_file)
+        Line Input #num_file, str
+        Debug.Print str
+    Loop
+    Close #num_file
+    
+End Sub
+
+
+Function fso_read_txt(file_name As String) As String
+    Dim fso As Object, sr As Object
+    
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set sr = fso.OpenTextFile(file_name, 1) 'ForReading=1
+    'Set sw = fso.OpenTextFile(tmp_txt, 8) 'ForAppending=8
+    'fso.CreateTextFile txt_path
+    'sr.AtEndOfStream
+
+    fso_read_txt = sr.ReadAll()
+    
+    Set fso = Nothing
+    Set sr = Nothing
+End Function

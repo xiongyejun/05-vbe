@@ -1,6 +1,9 @@
-Function GetFileName(Optional strFilter As String = "*.*") As String
+Function GetFileName() As String
     With Application.FileDialog(msoFileDialogOpen)
-'        .InitialFileName = ActiveWorkbook.path & "\" & strFilter
+        .InitialFileName = ActiveWorkbook.Path & "\"
+        .Filters.Clear
+        .Filters.Add "CSV TXT", "*.csv;*.txt"
+        
         If .Show = -1 Then                  ' -1代表确定，0代表取消
             GetFileName = .SelectedItems(1)
         Else

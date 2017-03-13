@@ -1,9 +1,9 @@
 Function providerStr(fileName As String) As String
     If Val(Application.Version) > 11 Then
-        providerStr = "OLEDB;Provider =Microsoft.ACE.OLEDB.12.0;Data Source=" _
+        providerStr = "Provider =Microsoft.ACE.OLEDB.12.0;Data Source=" _
                     & fileName & ";Extended Properties=""Excel 12.0;HDR=YES"";"
     Else
-        providerStr = "OLEDB;Provider =Microsoft.Jet.OLEDB.4.0;Data Source=" _
+        providerStr = "Provider =Microsoft.Jet.OLEDB.4.0;Data Source=" _
                     & fileName & ";Extended Properties=""Excel 8.0;HDR=YES"";"
     End If
     
