@@ -1,3 +1,20 @@
     Dim dic As Object
 
     Set dic = CreateObject("Scripting.Dictionary")
+
+Function DataToDic(dic As Object, arr(), key_col As Long, Optional item_col As Long = -1)
+    Dim i As Long
+    
+    Set dic = CreateObject("Scripting.Dictionary")
+    
+    If item_col = -1 Then
+        For i = 1 To UBound(arr, 1)
+            dic(arr(i, key_col)) = i
+        Next i
+    Else
+        For i = 1 To UBound(arr, 1)
+            dic(arr(i, key_col)) = arr(i, item_col)
+        Next i
+    End If
+    
+End Function

@@ -1,0 +1,22 @@
+Sub vba_main()
+
+
+    AddProperties ThisWorkbook
+    
+    
+    Exit Sub
+err_handle:
+    MsgBox Err.Description
+End Sub
+
+Function AddProperties(wk As Workbook)
+    On Error Resume Next
+    With wk
+        .BuiltinDocumentProperties(1) = "Excel VBA 定制" '标题
+        .BuiltinDocumentProperties(2) = "QQ648555205" '主题
+        .BuiltinDocumentProperties(4) = "淘宝:https://item.taobao.com/item.htm?id=545714227266"  '标记
+        .BuiltinDocumentProperties(5) = "淘宝:https://item.taobao.com/item.htm?id=545714227266"  '备注
+        .BuiltinDocumentProperties(6) = "淘宝:https://item.taobao.com/item.htm?id=545714227266"
+    End With
+    On Error GoTo 0
+End Function

@@ -11,3 +11,17 @@ Function GetFolderPath() As String
     End If
     Set myFolder = Nothing
 End Function
+
+Function GetFolderPath2(Optional str_title As String = "请选择文件夹。") As String
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        .InitialFileName = ActiveWorkbook.Path & "\"
+        .Title = str_title
+        
+        If .Show = -1 Then                  ' -1代表确定，0代表取消
+            GetFolderPath2 = .SelectedItems(1)
+        Else
+            GetFolderPath2 = ""
+            MsgBox "请选择文件夹。"
+        End If
+    End With
+End Function

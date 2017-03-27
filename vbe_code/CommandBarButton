@@ -1,9 +1,10 @@
 vba_main
+MyVbaMain
 i_row
 for_i
 dic
 ado
-scan_dir
+ScanDir
 query_table
 fso
 readtxt
