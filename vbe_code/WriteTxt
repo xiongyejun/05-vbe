@@ -1,0 +1,26 @@
+Sub WriteTxtLineByOpen()
+    Dim num_file As Integer
+    
+    num_file = VBA.FreeFile
+    
+    Open ThisWorkbook.Path & "\5555.txt" For Output As #num_file
+    
+    Write #num_file, "Hello World", 234
+    Write #num_file, "ÄãºÃ", 234, Now()
+    
+    Close #num_file
+End Sub
+
+
+Sub AppendTxtLineByOpen()
+    Dim num_file As Integer
+    
+    num_file = VBA.FreeFile
+    
+    Open ThisWorkbook.Path & "\5555.txt" For Append As #num_file
+    
+    Write #num_file, "Hello World", 234
+    Write #num_file, "ÄãºÃ", 234, Now()
+    
+    Close #num_file
+End Sub

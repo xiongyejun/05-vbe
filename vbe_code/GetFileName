@@ -1,14 +1,16 @@
-Function GetFileName() As String
+Function GetFileName(Optional str_tile As String = "", Optional str_filter As String = "") As String
     With Application.FileDialog(msoFileDialogOpen)
-        .InitialFileName = ActiveWorkbook.Path & "\"
+        .InitialFileName = ActiveWorkbook.path & "\"
         .Filters.Clear
-        .Filters.Add "CSV TXT", "*.csv;*.txt"
+        If VBA.Len(str_tile) > 0 Then .Title = str_tile
+        
+        If VBA.Len(str_filter) > 0 Then .Filters.Add VBA.Split(str_filter, "|")(0), VBA.Split(str_filter, "|")(1) 'CSV TXT|*.csv;*.txt
         
         If .Show = -1 Then                  ' -1代表确定，0代表取消
             GetFileName = .SelectedItems(1)
         Else
             GetFileName = ""
-            MsgBox "请选择文件对象。"
+'            MsgBox "请选择文件对象。"
         End If
     End With
 End Function

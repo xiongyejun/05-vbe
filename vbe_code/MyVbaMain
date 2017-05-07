@@ -1,8 +1,11 @@
 Sub vba_main()
 
+    On Error GoTo err_handle
 
-    AddProperties ThisWorkbook
-    
+
+
+
+    AddProperties ThisWorkbook    
     
     Exit Sub
 err_handle:
