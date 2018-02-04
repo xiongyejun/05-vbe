@@ -1,0 +1,12 @@
+'判断文件是否存在
+'FileName   文件名称
+'IfMsg      不存在的时候是否显示提示消息
+Function FileExists(FileName As String, Optional IfMsg As Boolean = False) As Boolean
+    FileExists = VBA.Dir(FileName) <> ""
+    
+    If Not FileExists Then
+        If IfMsg Then
+            MsgBox "不存在的文件：" & vbNewLine & FileName
+        End If
+    End If
+End Function

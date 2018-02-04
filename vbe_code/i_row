@@ -1,5 +1,5 @@
     Dim i_row As Long
 
     ActiveSheet.AutoFilterMode = False
-    i_row = Range("A" & Cells.Rows.Count).End(xlUp).Row
+    i_row = Cells(Cells.Rows.Count, 1).End(xlUp).Row
     If i_row < 2 Then MsgBox "没有数据": Exit Sub

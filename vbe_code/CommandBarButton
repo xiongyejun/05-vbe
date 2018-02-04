@@ -1,7 +1,8 @@
-msoControl,caption,faceID,flag
+msoControl,caption,faceID,endflag
 1,vba_main,538,
 1,MyVbaMain,540,
 1,i_row,73,
+1,i_col,73,
 1,for_i,615,
 10,Object,361,
 1,dic,2,
@@ -16,6 +17,7 @@ msoControl,caption,faceID,flag
 1,WriteTxt,456,
 1,GetFolderPath,23,
 1,GetFileName,18,
+1,FileExists,18,
 1,screen,69,
 1,if_has_sht,564,
 1,html,610,

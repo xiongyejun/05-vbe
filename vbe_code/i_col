@@ -1,0 +1,3 @@
+    Dim i_col As Long
+    
+    i_col = Cells(1, Cells.Columns.Count).End(xlToLeft).Column

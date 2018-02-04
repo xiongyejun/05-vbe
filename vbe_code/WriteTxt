@@ -24,3 +24,12 @@ Sub AppendTxtLineByOpen()
     
     Close #num_file
 End Sub
+
+Function ByteToFile(file_name As String, b() As Byte)
+    Dim iFreefile As Integer
+    
+    iFreefile = VBA.FreeFile()
+    Open file_name For Binary As iFreefile
+    Put #iFreefile, 1, b
+    Close iFreefile
+End Function

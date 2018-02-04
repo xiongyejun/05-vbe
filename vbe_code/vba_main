@@ -1,5 +1,13 @@
+Enum Pos
+    RowStart = 2
+End Enum
+
+Type DataStruct
+
+End Type
+
 Sub vba_main()
-    
+    Dim d As DataStruct
     
     On Error GoTo err_handle
     

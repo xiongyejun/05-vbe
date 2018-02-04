@@ -1,0 +1,1 @@
+GetObject("winmgmts:").InstancesOf("Win32_PhysicalMedia")("Win32_PhysicalMedia" & ".Tag=""\\\\.\\PHYSICALDRIVE0" & """").serialnumber
