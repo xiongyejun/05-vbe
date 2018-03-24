@@ -7,7 +7,6 @@ msoControl,caption,faceID,endflag
 10,Object,361,
 1,dic,2,
 1,ado,50,
-1,query_table,428,
 1,fso,53,
 1,regx,42,
 1,json,203,
@@ -22,10 +21,13 @@ msoControl,caption,faceID,endflag
 1,if_has_sht,564,
 1,html,610,
 1,getRngByInputBox,607,
-1,Desktop_path,606,
-1,金额大写,288,
 1,del_merge_rng,323,
 10,Sort,1,
 1,insertSort,594,
 1,SelectSort,595,
 1,QuickSort,596,1
+10,其他,2,
+1,Desktop_path,606,
+1,金额大写,288,
+1,query_table,428,
+1,身份证,2,1
