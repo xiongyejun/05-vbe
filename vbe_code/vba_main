@@ -1,13 +1,24 @@
+
+Enum ReturnCode
+    ErrRT = -1
+    SuccessRT = 1
+End Enum
+
 Enum Pos
     RowStart = 2
 End Enum
 
 Type DataStruct
-
+    Src() As Variant
+    Rows As Long
+    Cols As Long
+    
 End Type
 
 Sub vba_main()
     Dim d As DataStruct
+    
+    If ReturnCode.ErrRT = ReadData(d) Then Exit Sub
     
     On Error GoTo err_handle
     
@@ -16,3 +27,21 @@ Sub vba_main()
 err_handle:
     MsgBox Err.Description
 End Sub
+
+Private Function GetResult(d As DataStruct) As ReturnCode
+
+End Function
+
+Private Function ReadData(d As DataStruct) As ReturnCode
+
+    ActiveSheet.AutoFilterMode = False
+    d.Rows = Cells(Cells.Rows.Count, 1).End(xlUp).Row
+    If d.Rows < Pos.RowStart Then
+        MsgBox "没有数据"
+        ReadData = ReturnCode.ErrRT
+        Exit Function
+    End If
+    d.Src = Cells(1, 1).Resize(d.Rows, 1).Value
+
+    ReadData = ReturnCode.SuccessRT
+End Function
