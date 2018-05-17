@@ -8,7 +8,6 @@ msoControl,caption,faceID,endflag
 1,dic,2,
 1,ado,50,
 1,fso,53,
-1,regx,42,
 1,json,203,
 1,Clipboard,19,1
 1,ScanDir,32,
@@ -26,6 +25,11 @@ msoControl,caption,faceID,endflag
 1,insertSort,594,
 1,SelectSort,595,
 1,QuickSort,596,1
+10,regx,42,
+1,regx,42,
+1,regxNum,42,
+1,regxStr,42,
+1,regxSpecial,42,1
 10,其他,2,
 1,Desktop_path,606,
 1,金额大写,288,
