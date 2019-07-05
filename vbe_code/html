@@ -1,9 +1,10 @@
+
 Function GetHtml(str_url As String) As String
     Dim obj_http As Object
     
     Set obj_http = CreateObject("WinHttp.WinHttpRequest.5.1") 'CreateObject("MSXML2.XMLHTTP")
     With obj_http
-        .Open "POST", str_url, False
+        .Open "GET", str_url, False
         .setRequestHeader "Content-Type", "Application/x-www-form-urlencoded"
 '        .setRequestHeader "Referer", ""
         .Send

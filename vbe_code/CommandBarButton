@@ -19,6 +19,8 @@ msoControl,caption,faceID,endflag
 1,screen,69,
 1,AddSht,564,
 1,html,610,
+1,CheckNet,610,
+1,BinarySearch,594,
 1,getRngByInputBox,607,
 1,del_merge_rng,323,
 10,Sort,1,

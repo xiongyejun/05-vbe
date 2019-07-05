@@ -1,0 +1,40 @@
+'Arr    数据源，升序
+'FindValue  要查找的数据
+'找到Arr中刚好小于或等于它、并且下一个大于它的数据，返回下标
+Private Function BinarySearch(arr() As Long, FindValue As Long) As Long
+    Dim low As Long, high As Long
+    Dim iMid As Long
+    Dim iEnd As Long
+    
+    iEnd = UBound(arr)
+    high = iEnd
+    low = LBound(arr)
+    
+    Do While low <= high
+        iMid = (high + low) \ 2
+        If arr(iMid) = FindValue Then
+            Exit Do
+        ElseIf arr(iMid) < FindValue Then
+            '小于的时候还要保证iMid+1是大于它的
+            If iMid = iEnd Then
+                Exit Do
+            Else
+                If arr(iMid + 1) > FindValue Then
+                    Exit Do
+                End If
+            End If
+            
+            '没有退出，说明还要往后面继续查找
+            low = iMid + 1
+        Else
+            high = iMid - 1
+        End If
+    
+    Loop
+    
+    If low > high Then
+        BinarySearch = -1
+    Else
+        BinarySearch = iMid
+    End If
+End Function

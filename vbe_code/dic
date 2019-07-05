@@ -1,6 +1,6 @@
     Dim dic As Object
 
-    Set dic = CreateObject("Scripting.Dictionary")
+    Set dic = VBA.CreateObject("Scripting.Dictionary")
 
 'Function DataToDic(dic As Object, arr(), key_col As Long, Optional item_col As Long = -1)
 '    Dim i As Long

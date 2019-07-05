@@ -1,0 +1,11 @@
+Function CheckNet() As Boolean
+    Dim ret As Long
+    
+    ret = VBA.CreateObject("Wscript.shell").Run("ping www.baidu.com -n 1", 0, True)
+    If ret Then
+        MsgBox "Çë¼ì²éÍøÂçÊÇ·ñÍ¨³©£¡"
+        CheckNet = False
+    Else
+        CheckNet = True
+    End If
+End Function
