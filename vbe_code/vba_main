@@ -1,11 +1,13 @@
-
-Enum ReturnCode
+Enum RetCode
     ErrRT = -1
-    SuccessRT = 1
+    SuccRT = 1
 End Enum
 
 Enum Pos
     RowStart = 2
+    
+    KeyCol
+    Cols
 End Enum
 
 Type DataStruct
@@ -18,7 +20,8 @@ End Type
 Sub vba_main()
     Dim d As DataStruct
     
-    If ReturnCode.ErrRT = ReadData(d) Then Exit Sub
+    If RetCode.ErrRT = ReadSrc(d) Then Exit Sub
+    If RetCode.ErrRT = GetResult(d) Then Exit Sub
     
     On Error GoTo err_handle
     
@@ -28,20 +31,23 @@ err_handle:
     MsgBox Err.Description
 End Sub
 
-Private Function GetResult(d As DataStruct) As ReturnCode
+Private Function GetResult(d As DataStruct) As RetCode
 
 End Function
 
-Private Function ReadData(d As DataStruct) As ReturnCode
+Private Function ReadSrc(d As DataStruct) As RetCode
+    ReadSrc = ReadData(d.Src, d.Rows, Pos.Cols, Pos.KeyCol, Pos.RowStart)
+End Function
 
+Private Function ReadData(ByRef RetArr() As Variant, ByRef RetRow As Long, Cols As Long, KeyCol As Long, RowStart As Long) As RetCode
     ActiveSheet.AutoFilterMode = False
-    d.Rows = Cells(Cells.Rows.Count, 1).End(xlUp).Row
-    If d.Rows < Pos.RowStart Then
+    RetRow = Cells(Cells.Rows.Count, KeyCol).End(xlUp).Row
+    If RetRow < RowStart Then
         MsgBox "没有数据"
-        ReadData = ReturnCode.ErrRT
+        ReadData = RetCode.ErrRT
         Exit Function
     End If
-    d.Src = Cells(1, 1).Resize(d.Rows, 1).Value
+    RetArr = Cells(1, 1).Resize(RetRow, Cols).Value
 
-    ReadData = ReturnCode.SuccessRT
+    ReadData = RetCode.SuccRT
 End Function
