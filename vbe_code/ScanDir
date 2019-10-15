@@ -32,3 +32,41 @@ Function ScanDir(str_dir As String) As Long
 err_handle:
     ScanDir= -1
 End Function
+
+'Function ScanDir(str_dir As String, RetDirs() As String, RetFiles() As String) As Long
+'    Dim fso As Object
+'    Dim file As Object
+'    Dim folder As Object, subDir As Object
+'    Dim k As Long
+'
+'    On Error GoTo err_handle
+'
+'    Set fso = CreateObject("Scripting.FileSystemObject")
+'    Set folder = fso.Getfolder(str_dir)
+'
+'    k = 0
+'    For Each subDir In folder.Subfolders
+'        ReDim Preserve RetDirs(k) As String
+'        RetDirs(k) = subDir.path
+'        k = k + 1
+'    Next
+'
+'    k = 0
+'    For Each file In folder.Files
+'        ReDim Preserve RetFiles(k) As String
+'        RetFiles(k) = file.path
+'        k = k + 1
+'    Next file
+'
+'    ScanDir = k
+'
+'    Set file = Nothing
+'    Set folder = Nothing
+'    Set subDir = Nothing
+'    Set fso = Nothing
+'
+'    Exit Function
+'
+'err_handle:
+'    ScanDir = -1
+'End Function
